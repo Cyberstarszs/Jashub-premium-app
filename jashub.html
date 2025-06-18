@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JasHub - Toko Aplikasi Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --primary: #4361ee;
+            --primary-light: #e0e7ff;
+            --primary-dark: #3a56d4;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+            --success: #4caf50;
+            --warning: #ff9800;
+            --info: #2196f3;
+        }
+        
+        [data-theme="dark"] {
+            --primary: #4895ef;
+            --primary-light: #1e293b;
+            --primary-dark: #4361ee;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --text: #edf2f4;
+            --text-light: #adb5bd;
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            --shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            min-height: 100vh;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .promo-banner {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 25px 0;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-banner::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        
+        .search-container {
+            position: relative;
+            flex: 1 1 500px;
+            max-width: 600px;
+            min-width: 280px;
+        }
+        
+        #search {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            background-color: var(--card-bg);
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        #search:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1 1 auto;
+        }
+        
+        select {
+            padding: 12px 16px;
+            border-radius: 50px;
+            border: 2px solid var(--border);
+            background-color: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            height: 46px;
+            min-width: 200px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+        
+        button.filter-btn {
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: none;
+            background-color: var(--primary);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 46px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        
+        button.filter-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+            color: var(--primary);
+        }
+        
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .app-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .app-card h2 {
+            margin-top: 15px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        
+        .current-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        .discount-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            z-index: 1;
+        }
+        
+        .new-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            z-index: 1;
+        }
+        
+        .keterangan {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+        
+        .category {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            color: var(--warning);
+        }
+        
+        .rating-count {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .features {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            position: relative;
+            list-style-type: none;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-cart {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-cart:hover {
+            background-color: #e5177e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        
+        .favorite-btn:hover {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn.active {
+            color: var(--secondary);
+            animation: heartBeat 0.5s;
+        }
+        
+        @keyframes heartBeat {
+            0% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.3);
+            }
+            50% {
+                transform: scale(1);
+            }
+            75% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            color: var(--text-light);
+            padding: 60px 0;
+        }
+        
+        .no-results i {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-light);
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        
+        .no-results p {
+            font-size: 1rem;
+        }
+        
+        .cart-count {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 100;
+            animation: bounce 0.5s;
+        }
+        
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            grid-column: 1 / -1;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--primary-light);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            .promo-banner {
+                margin: 15px 0;
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+            .search-container {
+                min-width: 100%;
+            }
+            select {
+                min-width: 100% !important;
+            }
+            #results {
+                grid-template-columns: 1fr;
+            }
+            .app-card {
+                padding: 16px;
+            }
+            .cart-icon {
+                top: 10px;
+                right: 10px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .cart-count {
+                top: 12px;
+                right: 12px;
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .controls {
+                gap: 10px;
+            }
+            .filter-group {
+                gap: 8px;
+            }
+            #search {
+                padding: 12px 16px 12px 42px;
+            }
+            .search-icon {
+                left: 16px;
+            }
+            .btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <div class="logo">
+                <div class="logo-text">JasHub</div>
+            </div>
+            <p class="subtitle">Toko Aplikasi Premium Terpercaya - Akses Tanpa Batas Mulai Rp3.000</p>
+
+            <div class="promo-banner">
+                🎉 PROMO SPESIAL - DISKON HINGGA 90% 🎉
+            </div>
+
+            <div class="controls">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search" placeholder="Cari aplikasi (contoh: Netflix, Capcut)" onkeyup="cariApp()" />
+                </div>
+
+                <div class="filter-group">
+                    <select id="categoryFilter" onchange="cariApp()">
+                        <option value="">Semua Kategori</option>
+                        <option value="streaming">Streaming Film & Serial</option>
+                        <option value="editing">Edit Foto & Video</option>
+                        <option value="edukasi">Edukasi & Belajar</option>
+                        <option value="produktivitas">Produktivitas & Office</option>
+                        <option value="ai">AI & Tools Berbasis AI</option>
+                    </select>
+
+                    <select id="priceFilter" onchange="cariApp()">
+                        <option value="">Semua Harga</option>
+                        <option value="free">Gratis</option>
+                        <option value="0-10000">Rp 0 - 10.000</option>
+                        <option value="10000-20000">Rp 10.000 - 20.000</option>
+                        <option value="20000-50000">Rp 20.000 - 50.000</option>
+                        <option value="50000-100000">Rp 50.000+</option>
+                    </select>
+
+                    <select id="sortBy" onchange="cariApp()">
+                        <option value="name">Urutkan: Nama A-Z</option>
+                        <option value="price-low">Harga: Rendah ke Tinggi</option>
+                        <option value="price-high">Harga: Tinggi ke Rendah</option>
+                    </select>
+
+                    <button class="filter-btn" onclick="showFavorites()">
+                        <i class="fas fa-heart"></i> Favorit
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div id="results"></div>
+    </div>
+
+    <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+
+    <script>
+        const dataAplikasi = [{
+            name: "Netflix",
+            harga: 20000,
+            originalHarga: 120000,
+            keterangan: "Nikmati semua konten Netflix premium tanpa batas termasuk film, serial, dan dokumenter eksklusif",
+            features: [
+                "Akses ke semua konten premium",
+                "Tanpa iklan",
+                "Kualitas streaming 4K Ultra HD",
+                "Download untuk tontonan offline",
+                "4 layar simultan"
+            ],
+            category: "streaming",
+            discount: 83,
+            rating: 4.8
+        }, {
+            name: "Apple TV",
+            harga: 33000,
+            originalHarga: 80000,
+            keterangan: "Semua konten eksklusif Apple TV+ terbuka termasuk serial original dan film blockbuster",
+            features: [
+                "Akses ke semua konten Apple TV+",
+                "Original series dan film eksklusif",
+                "Kualitas 4K HDR",
+                "Download untuk tontonan offline",
+                "Multi-device support"
+            ],
+            category: "streaming",
+            discount: 59,
+            rating: 4.6
+        }, {
+            name: "Dramabox",
+            harga: 20000,
+            originalHarga: 50000,
+            keterangan: "Platform streaming drama Korea terlengkap dengan subtitle Bahasa Indonesia",
+            features: [
+                "Drama Korea terbaru dan klasik",
+                "Update episode cepat",
+                "Subtitle Bahasa Indonesia",
+                "Kualitas HD",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 60,
+            rating: 4.5
+        }, {
+            name: "Disney+",
+            harga: 43000,
+            originalHarga: 99000,
+            keterangan: "Koleksi lengkap Disney, Marvel, Star Wars, Pixar, dan National Geographic",
+            features: [
+                "Semua konten Disney+ premium",
+                "Film Marvel dan Star Wars terbaru",
+                "Kualitas 4K Ultra HD",
+                "7 profil berbeda",
+                "Download untuk offline"
+            ],
+            category: "streaming",
+            discount: 57,
+            rating: 4.7
+        }, {
+            name: "Loklok",
+            harga: 14000,
+            originalHarga: 40000,
+            keterangan: "Streaming film dan serial Asia lengkap dengan kualitas HD dan update harian",
+            features: [
+                "Film dan serial Asia terbaru",
+                "Kualitas HD",
+                "Subtitle multi-bahasa",
+                "Antarmuka user-friendly",
+                "Tanpa buffering"
+            ],
+            category: "streaming",
+            discount: 65,
+            rating: 4.3
+        }, {
+            name: "HBO",
+            harga: 25000,
+            originalHarga: 70000,
+            keterangan: "Konten HBO original premium termasuk Game of Thrones dan film-film box office",
+            features: [
+                "Semua serial HBO original",
+                "Film box office terbaru",
+                "Kualitas 4K HDR",
+                "3 device simultan",
+                "Download untuk offline"
+            ],
+            category: "streaming",
+            discount: 64,
+            rating: 4.6
+        }, {
+            name: "Viu",
+            harga: 5000,
+            originalHarga: 40000,
+            keterangan: "Platform drama Asia premium dengan berbagai pilihan subtitle dan dubbing",
+            features: [
+                "Drama Asia terpopuler",
+                "Pilihan subtitle dan dubbing",
+                "Kualitas HD",
+                "Download untuk offline",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 88,
+            rating: 4.4
+        }, {
+            name: "Estation",
+            harga: 17000,
+            originalHarga: 45000,
+            keterangan: "Konten hiburan terlengkap dari berbagai negara termasuk variety show dan reality show",
+            features: [
+                "Variety show Asia terpopuler",
+                "Reality show eksklusif",
+                "Kualitas HD",
+                "Update harian",
+                "Multi-language support"
+            ],
+            category: "streaming",
+            discount: 62,
+            rating: 4.2
+        }, {
+            name: "MangoTV",
+            harga: 23000,
+            originalHarga: 60000,
+            keterangan: "Drama dan variety show China premium dengan subtitle Bahasa Indonesia",
+            features: [
+                "Drama China terpopuler",
+                "Variety show eksklusif",
+                "Subtitle Bahasa Indonesia",
+                "Kualitas HD",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 62,
+            rating: 4.3
+        }, {
+            name: "WeTV",
+            harga: 15000,
+            originalHarga: 50000,
+            keterangan: "Platform streaming drama China dan Thailand premium dengan fitur lengkap",
+            features: [
+                "Drama China dan Thailand terbaru",
+                "Subtitle multi-bahasa",
+                "Kualitas HD",
+                "Download untuk offline",
+                "VIP badge di komentar"
+            ],
+            category: "streaming",
+            discount: 70,
+            rating: 4.4
+        }, {
+            name: "Viki",
+            harga: 23000,
+            originalHarga: 60000,
+            keterangan: "Drama Asia premium dengan subtitle berbagai bahasa dan komunitas penerjemah",
+            features: [
+                "Drama Asia lengkap",
+                "Subtitle crowd-sourced",
+                "Kualitas HD",
+                "Tanpa iklan",
+                "Fitur belajar bahasa"
+            ],
+            category: "streaming",
+            discount: 62,
+            rating: 4.5
+        }, {
+            name: "RCTI+",
+            harga: 23000,
+            originalHarga: 50000,
+            keterangan: "Tayangan premium RCTI, MNCTV, GTV, dan iNews dengan konten eksklusif",
+            features: [
+                "Semua tayangan RCTI grup",
+                "Konten eksklusif",
+                "Kualitas HD",
+                "Tanpa iklan",
+                "Multi-device support"
+            ],
+            category: "streaming",
+            discount: 54,
+            rating: 4.1
+        }, {
+            name: "Iqiyi",
+            harga: 17000,
+            originalHarga: 45000,
+            keterangan: "Platform streaming China premium dengan drama dan film terbaru",
+            features: [
+                "Drama China terbaru",
+                "Film box office",
+                "Kualitas 4K",
+                "Download untuk offline",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 62,
+            rating: 4.3
+        }, {
+            name: "Youku",
+            harga: 23000,
+            originalHarga: 60000,
+            keterangan: "Drama dan film China premium dengan kualitas tinggi dan update cepat",
+            features: [
+                "Drama China eksklusif",
+                "Film terbaru",
+                "Kualitas 4K HDR",
+                "Subtitle multi-bahasa",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 62,
+            rating: 4.2
+        }, {
+            name: "Shortmax",
+            harga: 23000,
+            originalHarga: 50000,
+            keterangan: "Platform video pendek premium tanpa iklan dengan konten eksklusif",
+            features: [
+                "Video pendek premium",
+                "Tanpa iklan",
+                "Konten eksklusif",
+                "Download video",
+                "Kualitas HD"
+            ],
+            category: "streaming",
+            discount: 54,
+            rating: 4.0
+        }, {
+            name: "Vidio",
+            harga: 25000,
+            originalHarga: 50000,
+            keterangan: "Layanan streaming lokal dan internasional premium dengan kualitas HD",
+            features: [
+                "Konten lokal premium",
+                "Film internasional",
+                "Kualitas HD",
+                "Tanpa iklan",
+                "Multi-device"
+            ],
+            category: "streaming",
+            discount: 50,
+            rating: 4.2
+        }, {
+            name: "Moviebox",
+            harga: 15000,
+            originalHarga: 40000,
+            keterangan: "Koleksi film Hollywood dan Asia lengkap dengan kualitas tinggi",
+            features: [
+                "Film Hollywood terbaru",
+                "Film Asia lengkap",
+                "Kualitas HD",
+                "Subtitle Bahasa Indonesia",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 63,
+            rating: 4.3
+        }, {
+            name: "Prime Video",
+            harga: 7000,
+            originalHarga: 50000,
+            keterangan: "Film dan serial Amazon Original premium dengan akses tanpa batas",
+            features: [
+                "Amazon Original series",
+                "Film blockbuster",
+                "Kualitas 4K HDR",
+                "Download untuk offline",
+                "Multi-device"
+            ],
+            category: "streaming",
+            discount: 86,
+            rating: 4.6,
+            isNew: true
+        }, {
+            name: "Drakor Id",
+            harga: 30000,
+            originalHarga: 70000,
+            keterangan: "Platform khusus drama Korea terlengkap dengan subtitle Bahasa Indonesia",
+            features: [
+                "Drama Korea terlengkap",
+                "Subtitle Bahasa Indonesia",
+                "Update cepat",
+                "Kualitas HD",
+                "Tanpa iklan"
+            ],
+            category: "streaming",
+            discount: 57,
+            rating: 4.5
+        }, {
+            name: "Capcut",
+            harga: 15000,
+            originalHarga: 30000,
+            keterangan: "Editor video premium dengan semua efek pro dan template eksklusif",
+            features: [
+                "Semua efek pro terbuka",
+                "Template premium",
+                "Tanpa watermark",
+                "Ekspor kualitas 4K",
+                "Fitur AI editing"
+            ],
+            category: "editing",
+            discount: 50,
+            rating: 4.7,
+            isPopular: true
+        }, {
+            name: "Canva",
+            harga: 3000,
+            originalHarga: 150000,
+            keterangan: "Template dan aset premium tanpa batas untuk desain profesional",
+            features: [
+                "Template premium semua kategori",
+                "Aset pro (foto, ilustrasi, icon)",
+                "Tool AI untuk desain",
+                "Ekspor tanpa watermark",
+                "Kolaborasi tim"
+            ],
+            category: "editing",
+            discount: 98,
+            rating: 4.8
+        }, {
+            name: "Picsart",
+            harga: 15000,
+            originalHarga: 40000,
+            keterangan: "Edit foto premium dengan semua fitur pro dan efek eksklusif",
+            features: [
+                "Semua filter dan efek pro",
+                "Tool editing profesional",
+                "AI photo enhancer",
+                "Tanpa watermark",
+                "Template eksklusif"
+            ],
+            category: "editing",
+            discount: 63,
+            rating: 4.5
+        }, {
+            name: "Remini",
+            harga: 17000,
+            originalHarga: 60000,
+            keterangan: "Perbaikan foto dengan AI berkualitas tinggi untuk hasil profesional",
+            features: [
+                "Perbaikan foto AI",
+                "Peningkatan resolusi 4x",
+                "Warna dan kontras otomatis",
+                "Restorasi foto lama",
+                "Tanpa batas penggunaan"
+            ],
+            category: "editing",
+            discount: 72,
+            rating: 4.6
+        }, {
+            name: "Lightroom",
+            harga: 23000,
+            originalHarga: 60000,
+            keterangan: "Edit foto profesional dengan preset premium dan tool advanced",
+            features: [
+                "Preset premium semua kategori",
+                "Tool editing profesional",
+                "Cloud sync",
+                "Ekspor kualitas tinggi",
+                "Batas penyimpanan besar"
+            ],
+            category: "editing",
+            discount: 62,
+            rating: 4.7
+        }, {
+            name: "Alight Motion",
+            harga: 5000,
+            originalHarga: 25000,
+            keterangan: "Aplikasi animasi dan efek video premium tanpa batas untuk konten kreatif",
+            features: [
+                "Semua efek dan transisi pro",
+                "Keyframe animation",
+                "Ekspor tanpa watermark",
+                "Template premium",
+                "Dukungan layer tak terbatas"
+            ],
+            category: "editing",
+            discount: 80,
+            rating: 4.4
+        }, {
+            name: "Dazzcam",
+            harga: 33000,
+            originalHarga: 80000,
+            keterangan: "Filter dan efek kamera profesional premium untuk fotografi mobile",
+            features: [
+                "100+ filter profesional",
+                "Efek kamera real-time",
+                "Kontrol manual pro",
+                "Preset eksklusif",
+                "Ekspor kualitas tinggi"
+            ],
+            category: "editing",
+            discount: 59,
+            rating: 4.3
+        }, {
+            name: "VSCO",
+            harga: 20000,
+            originalHarga: 50000,
+            keterangan: "Preset dan tool editing premium untuk gaya fotografi profesional",
+            features: [
+                "200+ preset premium",
+                "Tool editing advanced",
+                "Komunitas kreatif",
+                "Ekspor kualitas tinggi",
+                "Tutorial eksklusif"
+            ],
+            category: "editing",
+            discount: 60,
+            rating: 4.5
+        }, {
+            name: "FaceApp",
+            harga: 15000,
+            originalHarga: 40000,
+            keterangan: "Editor foto wajah premium dengan efek AI terbaru dan filter profesional",
+            features: [
+                "Efek wajah AI canggih",
+                "Perubahan usia realistis",
+                "Filter profesional",
+                "Edit latar belakang",
+                "Tanpa watermark"
+            ],
+            category: "editing",
+            discount: 63,
+            rating: 4.2
+        }, {
+            name: "InShot",
+            harga: 10000,
+            originalHarga: 30000,
+            keterangan: "Editor video all-in-one premium dengan fitur pro tanpa batas",
+            features: [
+                "Semua fitur pro terbuka",
+                "Efek dan transisi premium",
+                "Ekspor 4K tanpa watermark",
+                "Tool editing lengkap",
+                "Template eksklusif"
+            ],
+            category: "editing",
+            discount: 67,
+            rating: 4.6
+        }, {
+            name: "Snapseed",
+            harga: 5000,
+            originalHarga: 20000,
+            keterangan: "Editor foto profesional premium dengan kontrol penuh atas setiap parameter",
+            features: [
+                "Tool editing profesional",
+                "Preset customizable",
+                "Selective adjustment",
+                "Ekspor kualitas maksimal",
+                "Antarmuka user-friendly"
+            ],
+            category: "editing",
+            discount: 75,
+            rating: 4.7
+        }, {
+            name: "ChatGPT Plus",
+            harga: 33000,
+            originalHarga: 200000,
+            keterangan: "Akses premium ke ChatGPT dengan fitur canggih dan prioritas akses",
+            features: [
+                "Akses ke GPT-4",
+                "Respon lebih cepat",
+                "Prioritas akses",
+                "Fitur eksperimental",
+                "Dukungan premium"
+            ],
+            category: "ai",
+            discount: 75,
+            rating: 4.9,
+            isPopular: true
+        }, {
+            name: "Grammarly",
+            harga: 30000,
+            originalHarga: 150000,
+            keterangan: "Alat penulisan AI premium dengan pemeriksaan tata bahasa dan gaya tingkat lanjut",
+            features: [
+                "Pemeriksaan grammar pro",
+                "Saran gaya penulisan",
+                "Plagiarism checker",
+                "Integrasi semua platform",
+                "Vocabulary enhancer"
+            ],
+            category: "ai",
+            discount: 80,
+            rating: 4.8
+        }, {
+            name: "Quillbot",
+            harga: 25000,
+            originalHarga: 100000,
+            keterangan: "Parafrase dan alat penulisan AI premium untuk konten berkualitas tinggi",
+            features: [
+                "Parafrase tingkat lanjut",
+                "Grammar checker",
+                "Summarizer tool",
+                "Integrasi browser",
+                "Mode kreatif premium"
+            ],
+            category: "ai",
+            discount: 75,
+            rating: 4.7
+        }, {
+            name: "Midjourney",
+            harga: 100000,
+            originalHarga: 300000,
+            keterangan: "Akses premium ke AI pembuat gambar dengan fitur tak terbatas",
+            features: [
+                "Generasi gambar tak terbatas",
+                "Akses ke model terbaru",
+                "Prioritas rendering",
+                "Private mode",
+                "Commercial license"
+            ],
+            category: "ai",
+            discount: 67,
+            rating: 4.9
+        }, {
+            name: "Notion AI",
+            harga: 40000,
+            originalHarga: 120000,
+            keterangan: "Fitur AI premium untuk Notion dengan kemampuan otomatisasi canggih",
+            features: [
+                "Generasi konten AI",
+                "Otomatisasi dokumen",
+                "Template cerdas",
+                "Task management AI",
+                "Integrasi penuh"
+            ],
+            category: "ai",
+            discount: 67,
+            rating: 4.6
+        }, {
+            name: "Duolingo Plus",
+            harga: 30000,
+            originalHarga: 80000,
+            keterangan: "Pembelajaran bahasa premium tanpa iklan dengan fitur offline",
+            features: [
+                "Pembelajaran tanpa iklan",
+                "Mode offline",
+                "Latihan tidak terbatas",
+                "Progress quiz",
+                "Konten eksklusif"
+            ],
+            category: "edukasi",
+            discount: 63,
+            rating: 4.7
+        }, {
+            name: "Coursera",
+            harga: 50000,
+            originalHarga: 200000,
+            keterangan: "Akses premium ke semua kursus dan sertifikat di platform Coursera",
+            features: [
+                "Akses ke semua kursus",
+                "Sertifikat resmi",
+                "Proyek praktis",
+                "Pembelajaran terarah",
+                "Konten eksklusif"
+            ],
+            category: "edukasi",
+            discount: 75,
+            rating: 4.8
+        }, {
+            name: "Udemy",
+            harga: 3000,
+            originalHarga: 500000,
+            keterangan: "Akses tak terbatas ke semua kursus premium di platform Udemy",
+            features: [
+                "Akses semua kursus",
+                "Sertifikat penyelesaian",
+                "Konten baru setiap bulan",
+                "Download untuk offline",
+                "Dukungan instruktur"
+            ],
+            category: "edukasi",
+            discount: 99,
+            rating: 4.7
+        }, {
+            name: "Zenius",
+            harga: 20000,
+            originalHarga: 50000,
+            keterangan: "Platform belajar online premium dengan kurikulum lengkap",
+            features: [
+                "Materi semua jenjang",
+                "Video pembelajaran",
+                "Latihan soal",
+                "Tryout online",
+                "Rapor belajar"
+            ],
+            category: "edukasi",
+            discount: 60,
+            rating: 4.6
+        }, {
+            name: "Skillshare",
+            harga: 40000,
+            originalHarga: 120000,
+            keterangan: "Akses premium ke semua kelas kreatif di Skillshare",
+            features: [
+                "Akses semua kelas",
+                "Project-based learning",
+                "Komunitas kreatif",
+                "Download untuk offline",
+                "Konten baru rutin"
+            ],
+            category: "edukasi",
+            discount: 67,
+            rating: 4.5
+        }, {
+            name: "Microsoft 365",
+            harga: 50000,
+            originalHarga: 150000,
+            keterangan: "Suite produktivitas premium dengan semua fitur terbaru",
+            features: [
+                "Word, Excel, PowerPoint",
+                "1TB cloud storage",
+                "Akses multi-device",
+                "Template premium",
+                "Dukungan penuh"
+            ],
+            category: "produktivitas",
+            discount: 67,
+            rating: 4.7
+        }, {
+            name: "Adobe Acrobat",
+            harga: 40000,
+            originalHarga: 120000,
+            keterangan: "Alat PDF premium dengan fitur editing dan konversi lengkap",
+            features: [
+                "Edit PDF canggih",
+                "Konversi berbagai format",
+                "OCR dokumen",
+                "Tanda tangan digital",
+                "Cloud storage"
+            ],
+            category: "produktivitas",
+            discount: 67,
+            rating: 4.6
+        }, {
+            name: "Notion",
+            harga: 30000,
+            originalHarga: 80000,
+            keterangan: "Workspace all-in-one premium dengan fitur tak terbatas",
+            features: [
+                "Halaman tak terbatas",
+                "Database canggih",
+                "Template premium",
+                "Kolaborasi tim",
+                "Integrasi penuh"
+            ],
+            category: "produktivitas",
+            discount: 63,
+            rating: 4.8
+        }, {
+            name: "Todoist",
+            harga: 20000,
+            originalHarga: 50000,
+            keterangan: "Manajemen tugas premium dengan produktivitas maksimal",
+            features: [
+                "Proyek tak terbatas",
+                "Reminder canggih",
+                "Produktivitas analytics",
+                "Template tugas",
+                "Integrasi luas"
+            ],
+            category: "produktivitas",
+            discount: 60,
+            rating: 4.5
+        }];
+
+        // Inisialisasi variabel
+        let currentTheme = 'light';
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Fungsi untuk menampilkan aplikasi
+        function displayApps(apps) {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+
+            if (apps.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>Tidak ada hasil ditemukan</h3>
+                        <p>Coba gunakan kata kunci lain atau filter yang berbeda</p>
+                    </div>
+                `;
+                return;
+            }
+
+            apps.forEach(app => {
+                        const isFavorite = favorites.includes(app.name);
+                        const isInCart = cart.some(item => item.name === app.name);
+
+                        const appCard = document.createElement('div');
+                        appCard.className = 'app-card';
+                        appCard.innerHTML = `
+                    ${app.discount ? `<div class="discount-badge">${app.discount}% OFF</div>` : ''}
+                    ${app.isNew ? `<div class="new-badge">BARU!</div>` : ''}
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${app.name}')">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    
+                    <h2>${app.name}</h2>
+                    
+                    <div class="price-container">
+                        <span class="current-price">Rp${app.harga.toLocaleString('id-ID')}</span>
+                        ${app.originalHarga ? `<span class="original-price">Rp${app.originalHarga.toLocaleString('id-ID')}</span>` : ''}
+                    </div>
+                    
+                    <div class="rating">
+                        ${Array(Math.floor(app.rating)).fill('<i class="fas fa-star"></i>').join('')}
+                        ${app.rating % 1 >= 0.5 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                        <span class="rating-count">${app.rating}/5</span>
+                    </div>
+                    
+                    <span class="category">${getCategoryName(app.category)}</span>
+                    
+                    <p class="keterangan">${app.keterangan}</p>
+                    
+                    <ul class="features">
+                        ${app.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="addToCart('${app.name}')">
+                            <i class="fas fa-shopping-cart"></i> ${isInCart ? 'Ditambahkan' : 'Beli Sekarang'}
+                        </button>
+                        <button class="btn btn-cart" onclick="window.open('https://wa.me/6281324919799?text=Saya%20ingin%20membeli%20${encodeURIComponent(app.name)}%20seharga%20Rp${app.harga.toLocaleString('id-ID')}', '_blank')">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                `;
+                resultsContainer.appendChild(appCard);
+            });
+        }
+        
+        // Fungsi untuk mendapatkan nama kategori
+        function getCategoryName(category) {
+            const categories = {
+                'streaming': 'Streaming Film & Serial',
+                'editing': 'Edit Foto & Video',
+                'edukasi': 'Edukasi & Belajar',
+                'produktivitas': 'Produktivitas & Office',
+                'ai': 'AI & Tools Berbasis AI'
+            };
+            return categories[category] || category;
+        }
+        
+        // Fungsi untuk mencari aplikasi
+        function cariApp() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            let filteredApps = dataAplikasi.filter(app => {
+                // Filter berdasarkan pencarian
+                const matchesSearch = app.name.toLowerCase().includes(searchInput) || 
+                                     app.keterangan.toLowerCase().includes(searchInput) ||
+                                     app.features.some(feat => feat.toLowerCase().includes(searchInput));
+                
+                // Filter berdasarkan kategori
+                const matchesCategory = !categoryFilter || app.category === categoryFilter;
+                
+                // Filter berdasarkan harga
+                let matchesPrice = true;
+                if (priceFilter === 'free') {
+                    matchesPrice = app.harga === 0;
+                } else if (priceFilter === '0-10000') {
+                    matchesPrice = app.harga > 0 && app.harga <= 10000;
+                } else if (priceFilter === '10000-20000') {
+                    matchesPrice = app.harga > 10000 && app.harga <= 20000;
+                } else if (priceFilter === '20000-50000') {
+                    matchesPrice = app.harga > 20000 && app.harga <= 50000;
+                } else if (priceFilter === '50000-100000') {
+                    matchesPrice = app.harga > 50000;
+                }
+                
+                return matchesSearch && matchesCategory && matchesPrice;
+            });
+            
+            // Sorting
+            if (sortBy === 'name') {
+                filteredApps.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortBy === 'price-low') {
+                filteredApps.sort((a, b) => a.harga - b.harga);
+            } else if (sortBy === 'price-high') {
+                filteredApps.sort((a, b) => b.harga - a.harga);
+            }
+            
+            displayApps(filteredApps);
+        }
+        
+        // Fungsi untuk toggle favorite
+        function toggleFavorite(appName) {
+            const index = favorites.indexOf(appName);
+            if (index === -1) {
+                favorites.push(appName);
+            } else {
+                favorites.splice(index, 1);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            cariApp(); // Refresh tampilan
+        }
+        
+        // Fungsi untuk menampilkan favorit
+        function showFavorites() {
+            if (favorites.length === 0) {
+                alert('Anda belum menambahkan aplikasi ke favorit!');
+                return;
+            }
+            
+            const favoriteApps = dataAplikasi.filter(app => favorites.includes(app.name));
+            displayApps(favoriteApps);
+            
+            // Scroll ke hasil pencarian
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Fungsi untuk menambahkan ke keranjang
+        function addToCart(appName) {
+            const app = dataAplikasi.find(a => a.name === appName);
+            if (!app) return;
+            
+            const existingItem = cart.find(item => item.name === appName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: app.name,
+                    price: app.harga,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            cariApp(); // Refresh tampilan untuk update button
+            
+            // Animasi
+            const cartIcon = document.getElementById('cartIcon');
+            cartIcon.classList.add('bounce');
+            setTimeout(() => {
+                cartIcon.classList.remove('bounce');
+            }, 1000);
+        }
+        
+        // Fungsi untuk update jumlah keranjang
+        function updateCartCount() {
+            const countElement = document.getElementById('cartCount');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            countElement.textContent = totalItems;
+            
+            if (totalItems > 0) {
+                countElement.style.display = 'flex';
+            } else {
+                countElement.style.display = 'none';
+            }
+        }
+        
+        // Fungsi untuk toggle tema
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+        
+        // Event listener untuk keranjang
+        document.getElementById('cartIcon').addEventListener('click', function() {
+            alert('Fitur keranjang belanja akan segera tersedia!');
+        });
+        
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set tema dari localStorage atau preferensi sistem
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            }
+            
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            const themeIcon = document.querySelector('#themeToggle i');
+            themeIcon.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            
+            // Tampilkan semua aplikasi
+            cariApp();
+            updateCartCount();
+        });
+        
+        // Tambahkan style untuk bounce animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+                40% {transform: translateY(-20px);}
+                60% {transform: translateY(-10px);}
+            }
+            .bounce {
+                animation: bounce 1s;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
